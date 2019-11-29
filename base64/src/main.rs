@@ -23,6 +23,30 @@ fn decimal_to_binary(number: i8) -> String {
     }
     return result;
 }
+
+fn binary_to_decimal(binary: &str) -> i8 {
+    let mut result: i8 = 0;
+    if &binary[0..1] == "1" {
+        result += 32;
+    }
+    if &binary[1..2] == "1" {
+        result += 16;
+    }
+    if &binary[2..3] == "1" {
+        result += 8;
+    }
+    if &binary[3..4] == "1" {
+        result += 4;
+    }
+    if &binary[4..5] == "1" {
+        result += 2;
+    }
+    if &binary[5..6] == "1" {
+        result += 1;
+    }
+    return result;
+}
+
 fn main() {
     println!("Input your text");
     let mut input = String::new();
@@ -36,6 +60,12 @@ fn main() {
         for c in clean_input.chars() {
             let ascii_value = c as i8;
             binary_string = format!("{}{}", binary_string, decimal_to_binary(ascii_value));
+        }
+        for _ in 0..(input_length * 8) / 6 {
+            let substring = &binary_string[0..6];
+            println!("{}", substring);
+            println!("{}", binary_to_decimal(substring));
+            binary_string = binary_string[6..].to_string();
         }
         println!("{}", binary_string);
     } else {
